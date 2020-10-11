@@ -18,9 +18,9 @@ export default {
 
     }
   },
+  computed: {
+  },
   created() {
-    console.log(this)
-
   },
   methods: {
     resend() {
@@ -29,7 +29,6 @@ export default {
           .then(function (response) {
             console.log(response)
       }).catch(error => (
-          // TODO make alert abiutn problem with connection
           this.errors = error.response.data
       ))
     }

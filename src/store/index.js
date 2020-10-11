@@ -9,10 +9,7 @@ Vue.use(Vuex, VueAxios, axios)
 export default new Vuex.Store({
   state: {
     countries: [],
-    auth: {
-      token: localStorage.getItem('authToken') || '',
-      code:  localStorage.getItem('authCode')  || '',
-    }
+    user: {}
   },
   mutations: {
     /**
@@ -20,20 +17,22 @@ export default new Vuex.Store({
      * @param {Object} state
      * @param {String} token
      */
-    setAuthToken(state, token) {
-      localStorage.setItem('authToken', token);
-      state.auth.token = token;
+    setUser(state, user) {
+      state.user = user;
     },
-    setAuthCode(state, code) {
-      localStorage.setItem('authCode', code);
-      state.auth.code = code;
-    },
+    // setAuthCode(state, code) {
+    //   localStorage.setItem('authCode', code);
+    //   state.auth.code = code;
+    // },
     setCountries(state, countries) {
       state.countries = countries
     },
     setNationalities(state, nationalities) {
       state.nationalities = nationalities
     },
+    // setAuthToken(stat, token) {
+    //   state
+    // }
   },
   actions: {
     /**
@@ -47,18 +46,9 @@ export default new Vuex.Store({
         context.commit('setNationalities', response.data);
       });
     },
-    authByCode(context, code) {
-      context.commit('setAuthCode', code);
-
-      let params = {code: code};
-      this.axios.post(`auth-by-code`, params).then(response => {
-        if (response.data.success && response.data.token) {
-          context.commit('setAuthToken', response.data.token);
-        } else {
-          context.commit('setAuthToken', '');
-        }
-      });
-    },
+    setUser(context, user) {
+      context.commit('setUser', user)
+    }
   },
   modules: {
   }

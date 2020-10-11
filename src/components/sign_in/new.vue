@@ -1,19 +1,19 @@
 <template>
   <div class="hello">
-    <h1>Sign up</h1>
+    <h1>SignIn</h1>
     <form action="#" v-on:submit.prevent="onSubmit">
       <span v-if="errors.error != undefined">{{errors.error}}</span>
       <br>
       <label for="">Email</label>
-      <input type="text" v-model="user.email">
+      <input type="text" v-model="sign_in.email">
       <span v-if="errors.email != undefined">{{errors.email.join(', ')}}</span>
       <br>
 
       <label for="" >Password</label>
-      <input type="password" v-model="user.password">
+      <input type="password" v-model="sign_in.password">
       <span v-if="errors.password != undefined">{{errors.password.join(', ')}}</span>
       <br>
-
+      <span v-if="errors.length > 0">{{errors.error}}</span>
       <input type="submit" value="SignIn">
     </form>
   </div>
@@ -23,6 +23,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import { mapState } from "vuex";
 
 
 Vue.use(VueAxios, axios)
@@ -32,7 +33,7 @@ export default {
   },
   data() {
     return {
-      user: {
+      sign_in: {
         email: '',
         password: '',
       },
@@ -40,12 +41,28 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState({
+      user: state => state.user
+    })
+  },
+
   methods: {
     onSubmit: function() {
-      axios.post('http://localhost:3000/api/v1/sign_in.json', { user: this.user }).then(function (response) {
+      axios.post('http://localhost:3000/api/v1/sign_in.json', { user: this.sign_in }).then((response) => {
+        this.$store.dispatch('setUser', response.data).then(() => {
+          if(response.data.enough_contact_information == true) {
+            this.$router.push({ name: 'ContactInformation' });
+          } else if(response.data.enough_document == true) {
+            console.log('document')
+          }
+        })
+
+
 
       }).catch(error => (
-          this.errors = error.response.data
+          console.log(error.response.data),
+        this.errors = error.response.data
       ))
     }
   }

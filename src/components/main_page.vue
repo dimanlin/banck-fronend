@@ -2,6 +2,9 @@
   <div class="hello">
     <h1>Main page</h1>
     <router-link to="/sign-up">SignUp</router-link>
+    <br>
+    <br>
+    <router-link to="/sign-in">SignIn</router-link>
   </div>
 </template>
 
