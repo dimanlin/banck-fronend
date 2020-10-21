@@ -12,6 +12,11 @@ export default new Vuex.Store({
     nationalities: [],
     user: {}
   },
+  getters: {
+    hasLogIn: () => {
+      return !!localStorage.getItem('authentication_token');
+    }
+  },
   mutations: {
     /**
      * Example usage in Vue components: this.$store.commit('setAuthToken', token);
@@ -20,17 +25,21 @@ export default new Vuex.Store({
      */
     setUser(state, user) {
       state.user = user;
+      localStorage.setItem('authentication_token', user.authentication_token);
     },
-    // setAuthCode(state, code) {
-    //   localStorage.setItem('authCode', code);
-    //   state.auth.code = code;
-    // },
+    logoutUser(state) {
+      state.user = {};
+      console.log('33333333333333333333333')
+      localStorage.removeItem('authentication_token');
+    },
     setCountries(state, countries) {
       state.countries = countries
     },
     setNationalities(state, nationalities) {
       state.nationalities = nationalities
     },
+    // REMOVE
+
     // setAuthToken(stat, token) {
     //   state
     // }
@@ -49,6 +58,14 @@ export default new Vuex.Store({
     },
     setUser(context, user) {
       context.commit('setUser', user)
+    },
+    updateCurrentUser(context) {
+      Axios.get(`http://localhost:3000/api/v1/users/info.json`).then(response => {
+        context.commit('setUser', response.data)
+      });
+    },
+    logoutUser(context) {
+      context.commit('logoutUser')
     }
   },
   modules: {

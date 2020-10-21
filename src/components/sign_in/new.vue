@@ -57,9 +57,6 @@ export default {
             console.log('document')
           }
         })
-
-
-
       }).catch(error => (
           console.log(error.response.data),
         this.errors = error.response.data
