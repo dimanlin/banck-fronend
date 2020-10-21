@@ -9,6 +9,7 @@ Vue.use(Vuex, VueAxios, axios)
 export default new Vuex.Store({
   state: {
     countries: [],
+    nationalities: [],
     user: {}
   },
   mutations: {

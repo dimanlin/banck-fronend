@@ -8,7 +8,7 @@
       <br>
 
       <label for="">Nationality</label>
-      <select name="" v-model="user.nationality">
+      <select v-model="user.nationality">
         <option v-for="n in nationalities" :key="n">{{n}}</option>
       </select>
       <span v-if="errors.nationality != undefined">{{errors.nationality.join(' ,')}}</span>
