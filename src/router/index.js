@@ -28,6 +28,12 @@ const routes = [
         component: SignIn
     },
     {
+        path: '/confirm',
+        name: 'SignIn',
+        component: SignIn,
+        props: true
+    },
+    {
         path: '/confirmation-email/:email',
         name: 'Confirmation',
         component: Confirmation,

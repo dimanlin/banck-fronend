@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>SignIn</h1>
+    <span v-if="confirm">You email address has been successfully confirmed.</span>
     <form action="#" v-on:submit.prevent="onSubmit">
       <span v-if="errors.error != undefined">{{errors.error}}</span>
       <br>
@@ -29,8 +30,7 @@ import { mapState } from "vuex";
 Vue.use(VueAxios, axios)
 
 export default {
-  props: {
-  },
+  props: ['confirm'],
   data() {
     return {
       sign_in: {
@@ -45,7 +45,6 @@ export default {
       user: state => state.user
     })
   },
-
   methods: {
     onSubmit: function() {
       axios.post('http://localhost:3000/api/v1/sign_in.json', { user: this.sign_in }).then((response) => {
