@@ -5,6 +5,8 @@ import SignUp from '../components/sign_up/new.vue'
 import ContactInformation from '../components/sign_up/contact_information.vue'
 import Confirmation from '../components/sign_up/confirmation.vue'
 import SignIn from '../components/sign_in/new.vue'
+import Сonfirmation from '../components/sign_in/confirmation'
+
 import Dashboard from '../components/dashboard/index.vue'
 import Wallets from '../components/wallets/index.vue'
 import store from '../store/index'
@@ -28,9 +30,9 @@ const routes = [
         component: SignIn
     },
     {
-        path: '/confirm',
-        name: 'SignIn',
-        component: SignIn,
+        path: '/confirmrmation',
+        name: 'Сonfirmation',
+        component: Сonfirmation,
         props: true
     },
     {

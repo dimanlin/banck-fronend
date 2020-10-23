@@ -1,7 +1,9 @@
 <template>
   <div class="hello">
     <h1>SignIn</h1>
-    <auth_form></auth_form>
+    <auth_form>
+      <span>Confirmed!</span>
+    </auth_form>
   </div>
 </template>
 
