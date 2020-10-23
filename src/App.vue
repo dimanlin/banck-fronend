@@ -7,8 +7,7 @@
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
-
+import axios from 'axios'
 
 export default {
   name: 'App',
@@ -16,15 +15,16 @@ export default {
 
   },
   created: function () {
-    this.$http.interceptors.response.use(undefined, function (err) {
-      return new Promise(function () {
-        console.log('22222222222222')
-        console.log(err)
-        if (err.status === 401) {
-          this.$store.dispatch("logoutUser")
-        }
-        throw err;
-      });
+    axios.interceptors.response.use((response) => {
+      return response;
+    }, (error) => {
+      if(error.response.status === 401) {
+        this.$router.push({ name: 'SignIn' })
+      }
+      // if (error.response && error.response.data) {
+      //   return Promise.reject(error.response.data);
+      // }
+      return Promise.reject(error);
     });
   }
 }

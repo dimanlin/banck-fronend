@@ -14,7 +14,7 @@ export default new Vuex.Store({
   },
   getters: {
     hasLogIn: () => {
-      return !!localStorage.getItem('authentication_token');
+      return !!localStorage.getItem('authentication_token') && !!localStorage.getItem('email');
     }
   },
   mutations: {
@@ -26,11 +26,12 @@ export default new Vuex.Store({
     setUser(state, user) {
       state.user = user;
       localStorage.setItem('authentication_token', user.authentication_token);
+      localStorage.setItem('email', user.email);
     },
     logoutUser(state) {
       state.user = {};
-      console.log('33333333333333333333333')
       localStorage.removeItem('authentication_token');
+      localStorage.removeItem('email');
     },
     setCountries(state, countries) {
       state.countries = countries
@@ -60,7 +61,11 @@ export default new Vuex.Store({
       context.commit('setUser', user)
     },
     updateCurrentUser(context) {
-      Axios.get(`http://localhost:3000/api/v1/users/info.json`).then(response => {
+      Axios.get(`http://localhost:3000/api/v1/users/info.json`,
+          { headers: {'X-User-Token': localStorage.getItem('authentication_token'),
+                            'X-User-Email': localStorage.getItem('email'),
+                            'Content-Type': 'application/json'}})
+          .then(response => {
         context.commit('setUser', response.data)
       });
     },

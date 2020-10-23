@@ -1,5 +1,9 @@
 <template>
   <div>
+    <navigation></navigation>
+    <br>
+
+    <div>Cards</div>
     <h1>Dashboard</h1>
     <span>Hello</span>
   </div>
@@ -9,7 +13,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-// import { mapState } from 'vues'
+import Nav from "@/components/shared/navigation";
 
 
 Vue.use(VueAxios, axios)
@@ -19,11 +23,11 @@ export default {
   data() {
     return {}
   },
-
+  components: {
+    'navigation': Nav
+  },
   methods: {
-    // ...mapState({
-    //
-    // })
+
   }
 }
 </script>

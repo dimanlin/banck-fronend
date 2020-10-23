@@ -6,6 +6,7 @@ import ContactInformation from '../components/sign_up/contact_information.vue'
 import Confirmation from '../components/sign_up/confirmation.vue'
 import SignIn from '../components/sign_in/new.vue'
 import Dashboard from '../components/dashboard/index.vue'
+import Wallets from '../components/wallets/index.vue'
 import store from '../store/index'
 
 Vue.use(VueRouter)
@@ -36,6 +37,9 @@ const routes = [
         path: '/dashboard',
         name: 'Dashboard',
         component: Dashboard,
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: '/contact_information',
@@ -44,7 +48,23 @@ const routes = [
         meta: {
             requiresAuth: true
         }
-    }
+    },
+    {
+        path: '/wallets',
+        name: 'Wallets',
+        component: Wallets,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    // {
+    //     path: '/payments',
+    //     name: 'Payments',
+    //     component: payments,
+    //     meta: {
+    //         requiresAuth: true
+    //     }
+    // }
 ]
 
 const router = new VueRouter({
@@ -57,8 +77,9 @@ router.beforeEach((to, from, next) => {
         if (store.getters.hasLogIn) {
             next()
             return
+        } else {
+            next('/sign-in')
         }
-        next('/sign-in')
     } else {
         next()
     }

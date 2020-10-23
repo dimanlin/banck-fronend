@@ -4,18 +4,23 @@
     <form v-on:submit.prevent="Submit">
       <label>First name</label>
       <input type="text" v-model="form.first_name">
+      <span v-if="errors.first_name != undefined">{{errors.first_name.join(', ')}}</span>
       <br>
       <label>Last name</label>
       <input type="text" v-model="form.last_name">
+      <span v-if="errors.last_name != undefined">{{errors.last_name.join(', ')}}</span>
       <br>
       <label>Phone number</label>
       <select v-model="form.dial_code">
         <option v-for="code in country_codes" :key="code">{{code}}</option>
+        <span v-if="errors.dial_code != undefined">{{errors.dial_code.join(', ')}}</span>
       </select>
       <input type="text" v-model="form.phone_number">
+      <span v-if="errors.phone_number != undefined">{{errors.phone_number.join(', ')}}</span>
       <br>
       <label>BoB</label>
       <input type="text" v-model="form.dob">
+      <span v-if="errors.dob != undefined">{{errors.dob.join(', ')}}</span>
       <input type="submit" value="Send">
     </form>
   </div>
@@ -47,12 +52,16 @@ export default {
   computed: mapState(['user']),
   methods: {
     Submit() {
-      // this.$store.dispatch('setUser', response.data)
-      axios.post('http://localhost:3000/api/v1/document.json',
-          { user: { document: this.form }})
-          .then(function (response) {
-            console.log(response)
+      axios.post('http://localhost:3000/api/v1/contact_informations.json',
+          this.form,
+          { headers: {'X-User-Token': localStorage.getItem('authentication_token'),
+                            'X-User-Email': localStorage.getItem('email'),
+                            'Content-Type': 'application/json'}})
+          .then(() => {
+            this.$router.push({name: 'Dashboard'})
           }).catch(error => (
+              console.log('hhhhhhhhhhhhhhh'),
+              console.log(error.response.data),
             this.errors = error.response.data
           ))
     }

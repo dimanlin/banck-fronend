@@ -40,7 +40,6 @@ export default {
       errors: {}
     }
   },
-
   computed: {
     ...mapState({
       user: state => state.user
@@ -53,8 +52,8 @@ export default {
         this.$store.dispatch('setUser', response.data).then(() => {
           if(response.data.enough_contact_information == true) {
             this.$router.push({ name: 'ContactInformation' });
-          } else if(response.data.enough_document == true) {
-            console.log('document')
+          } else {
+            this.$router.push({ name: 'Dashboard' });
           }
         })
       }).catch(error => (
