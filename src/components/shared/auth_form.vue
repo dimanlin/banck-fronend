@@ -51,7 +51,7 @@ export default {
           if(response.data.enough_contact_information == true) {
             this.$router.push({ name: 'ContactInformation' });
           } else {
-            this.$router.push({ name: 'Dashboard' });
+            this.$router.push({ name: 'Wallets' });
           }
         })
       }).catch(error => (

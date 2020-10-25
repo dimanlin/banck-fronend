@@ -9,7 +9,6 @@ import Сonfirmation from '../components/sign_in/confirmation'
 
 import PhoneConfirmation from '../components/sign_up/phone_confirmation'
 
-import Dashboard from '../components/dashboard/index.vue'
 import Wallets from '../components/wallets/index.vue'
 import store from '../store/index'
 
@@ -42,14 +41,6 @@ const routes = [
         name: 'Confirmation',
         component: Confirmation,
         props: true
-    },
-    {
-        path: '/dashboard',
-        name: 'Dashboard',
-        component: Dashboard,
-        meta: {
-            requiresAuth: true
-        }
     },
     {
         path: '/contact_information',
