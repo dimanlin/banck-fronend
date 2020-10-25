@@ -32,7 +32,6 @@ import axios from "axios";
 import { mapState } from 'vuex';
 
 export default {
-  props: {},
   data() {
     return {
       form: {
@@ -58,7 +57,7 @@ export default {
                             'X-User-Email': localStorage.getItem('email'),
                             'Content-Type': 'application/json'}})
           .then(() => {
-            this.$router.push({name: 'Dashboard'})
+            this.$router.push({name: 'PhoneConfirmation'})
           }).catch(error => (
               console.log('hhhhhhhhhhhhhhh'),
               console.log(error.response.data),

@@ -19,4 +19,5 @@ export default {
     'auth_form': AuthForm
   }
 }
+
 </script>

@@ -7,6 +7,8 @@ import Confirmation from '../components/sign_up/confirmation.vue'
 import SignIn from '../components/sign_in/new.vue'
 import Сonfirmation from '../components/sign_in/confirmation'
 
+import PhoneConfirmation from '../components/sign_up/phone_confirmation'
+
 import Dashboard from '../components/dashboard/index.vue'
 import Wallets from '../components/wallets/index.vue'
 import store from '../store/index'
@@ -53,6 +55,14 @@ const routes = [
         path: '/contact_information',
         name: 'ContactInformation',
         component: ContactInformation,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/phone_confirmation',
+        name: 'PhoneConfirmation',
+        component: PhoneConfirmation,
         meta: {
             requiresAuth: true
         }
